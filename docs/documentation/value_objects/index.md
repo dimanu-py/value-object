@@ -9,6 +9,7 @@ For detailed information on specific value object types, see:
 - [Validation framework and custom rules](validation.md)
 - [Creating custom value objects](customizing_vo.md)
 - [Domain aggregates and entities](aggregate_roots.md)
+- [Optional value object pattern](optional.md)
 - [Migration Guide for validator signature changes](migration_guide.md)
 
 ## Pattern Overview

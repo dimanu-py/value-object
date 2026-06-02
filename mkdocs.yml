@@ -81,6 +81,7 @@ nav:
       - Validation Mechanism: value_objects/validation.md
       - Customizing Value Objects: value_objects/customizing_vo.md
       - Aggregate Roots: value_objects/aggregate_roots.md
+      - Optional: value_objects/optional.md
       - Migration Guide: value_objects/migration_guide.md
   - Contributing:
       - How to Contribute: contributing/contributing_guide.md
