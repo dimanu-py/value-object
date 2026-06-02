@@ -1,4 +1,4 @@
-# Value Objects
+# Value Object Sindri
 
 <div align="center">
   <strong>Easy use and customizable implementation for Value Object pattern.</strong>
