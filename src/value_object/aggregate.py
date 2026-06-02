@@ -243,7 +243,8 @@ class Aggregate(ABC):
             >>> Item.from_primitives({"item_id": "123", "description": "test"})
             Traceback (most recent call last):
                 ...
-            ValueError: Item primitives <<<description, item_id>>> must contain all constructor parameters. Missing parameters: <<<name, price>>> and extra parameters: <<<description>>>.
+            ValueError: Item primitives <<<description, item_id>>> must contain all constructor parameters.
+             Missing parameters: <<<name, price>>> and extra parameters: <<<description>>>.
         """
         primitives_names = ", ".join(sorted(primitives))
         missing_names = ", ".join(sorted(missing))

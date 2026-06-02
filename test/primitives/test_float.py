@@ -2,10 +2,10 @@ from typing import Any
 
 import pytest
 from expects import equal, expect, raise_error
-
 from object_mother.primitives.float_primitives_mother import (
     FloatPrimitivesMother,
 )
+
 from value_object.errors.incorrect_value_type_error import (
     IncorrectValueTypeError,
 )

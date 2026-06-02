@@ -1,9 +1,9 @@
 import pytest
 from expects import equal, expect, raise_error
-
 from object_mother.identifiers.string_uuid_primitives_mother import (
     StringUuidPrimitivesMother,
 )
+
 from value_object.errors.incorrect_value_type_error import (
     IncorrectValueTypeError,
 )
