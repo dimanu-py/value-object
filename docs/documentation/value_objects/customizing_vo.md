@@ -13,7 +13,7 @@ express the ubiquitous language of your domain.
 The fastest way to create these types of value objects is by subclassing one of the [built-in primitive types](built_in_vo.md).
 
 ```python
-from value_objects import String
+from value_object import String
 
 
 class ProductCode(String):
@@ -27,7 +27,7 @@ You can also specialize a value object and add custom validation logic using the
 seen in the [previous section](validation.md#custom-validations)
 
 ```python
-from value_objects import Integer, validate, SindriValidationError
+from value_object import Integer, validate, SindriValidationError
 
 
 class NegativeIntegerError(SindriValidationError):
@@ -49,7 +49,7 @@ you can create your own value object from scratch by subclassing the `ValueObjec
 
 ```python
 from datetime import date
-from value_objects import ValueObject, validate, SindriValidationError
+from value_object import ValueObject, validate, SindriValidationError
 
 
 class Date(ValueObject[date]):

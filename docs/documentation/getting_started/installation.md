@@ -1,22 +1,18 @@
 !!! info "Python Version Support"
-    Both packages officially support Python 3.10 and higher.
+    This package officially support Python 3.10 and higher.
     Older versions of Python may work, but they are not guaranteed to be compatible.
 
-The project provides two independent packages you can install separately depending on your needs.
 
 ## Installing with pip
 
 ```bash
-pip install value-object-sindri      # value objects only, zero runtime dependencies
-pip install object-mother-sindri      # object mothers with faker for test data
-pip install value-object-sindri object-mother-sindri  # both
+pip install value-object-sindri
 ```
 
 ## Installing with uv
 
 ```bash
 uv add value-object-sindri
-uv add object-mother-sindri --group test
 ```
 
 ## Next steps

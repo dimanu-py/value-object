@@ -1,6 +1,6 @@
 # Security Policy
 
-Thank you for helping keep **Sindripy** package and its users safe.
+Thank you for helping keep **Sindri Value Object** package and its users safe.
 We take security issues seriously and appreciate responsible disclosures.
 
 ## Reporting a Vulnerability
@@ -10,7 +10,7 @@ We take security issues seriously and appreciate responsible disclosures.
     Use one of the private channels below so we can coordinate a safe disclosure.
 
 | Channel                      | How it works                                                                                                                  |
-| ---------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+|------------------------------|-------------------------------------------------------------------------------------------------------------------------------|
 | **GitHub Security Advisory** | 1. Navigate to the repository's **“Security → Advisories”** tab<br>2. Click **“Report a vulnerability”** and fill in the form |
 
 Include the following, if possible:
@@ -40,4 +40,4 @@ We kindly ask you to:
 
 We are committed to keeping this project and its users safe and will strive to resolve all legitimate reports swiftly and transparently.
 
-_Thank you for keeping the **Sindripy** package community secure!_
+_Thank you for keeping the **Sindri Value Object** package community secure!_

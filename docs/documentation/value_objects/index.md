@@ -1,7 +1,7 @@
 # Value Objects
 
 This document provides a comprehensive overview of the Value Object pattern implementation 
-in the `sintri` library. 
+in the `value-object-sindri` library. 
 
 For detailed information on specific value object types, see:
 
@@ -10,8 +10,6 @@ For detailed information on specific value object types, see:
 - [Creating custom value objects](customizing_vo.md)
 - [Domain aggregates and entities](aggregate_roots.md)
 - [Migration Guide for validator signature changes](migration_guide.md)
-
-For generating test data using value objects, see [Object Mothers](../object_mothers/index.md).
 
 ## Pattern Overview
 
@@ -22,10 +20,10 @@ They act as behavior magnets and try to avoid the code smells of anemic domain m
 
 Value objects are characterized by:
 
-- Immutability: Once created, a value object's state cannot be changed
-- Value equality: Two value objects are equal if their values are equal, regardless of identity
-- Self-validation: Value objects validate their state upon construction
-- Domain semantics: They represent meaningful concepts in the domain rather than primitive types
+- **Immutability**: Once created, a value object's state cannot be changed
+- **Value** equality: Two value objects are equal if their values are equal, regardless of identity
+- **Self**-validation: Value objects validate their state upon construction
+- **Domain** semantics: They represent meaningful concepts in the domain rather than primitive types
 
 In this implementation, all value objects inherit from the generic `ValueObject[T]` base class, 
 where `T` represents the underlying primitive type being wrapped.
@@ -42,7 +40,7 @@ The `ValueObject[T]` base class provides core functionality for all value object
 | Equality              | Value-based equality comparison                       | `__eq__` compares `_value` attributes    |
 | Hashing               | Hashable for use in sets and as dict keys             | `__hash__` based on `_value`             |
 | String Representation | Human-readable and debug representations              | `__str__` and `__repr__` methods         |
-| Value Access         | Read-only access to the wrapped value                 | `value` property                         |
+| Value Access          | Read-only access to the wrapped value                 | `value` property                         |
 | Validation            | Hooks for custom validation logic                     | `@validate` decorator                    |
 
 !!! note "Subclassing"
@@ -103,7 +101,7 @@ This property returns the internal `_value` attribute, allowing you to retrieve 
 primitive value without exposing the internal state for modification.
 
 ```python
-from value_objects import String
+from value_object import String
 
 username = String("john_doe")
 print(username.value)  # john_doe

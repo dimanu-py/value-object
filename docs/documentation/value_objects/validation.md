@@ -35,7 +35,7 @@ method:
 - Returns None if validation passes
 
 ```python
-from value_objects import ValueObject, validate
+from value_object import ValueObject, validate
 
 
 class YourValueObject(ValueObject[int]):
@@ -53,7 +53,7 @@ The order of execution can be controlled in two ways:
 1. **Definition Order**: By default, validation methods are executed in the order they are defined in the class.
 
     ```python
-    from value_objects import ValueObject, validate, SindriValidationError
+    from value_object import ValueObject, validate, SindriValidationError
    
     class Integer(ValueObject[int]):
         @validate
@@ -70,7 +70,7 @@ The order of execution can be controlled in two ways:
 2. **Explicit Order**: You can specify an `order` parameter in the `@validate` decorator to control the sequence explicitly.
 
     ```python
-    from value_objects import ValueObject, validate, SindriValidationError
+    from value_object import ValueObject, validate, SindriValidationError
     
     class Integer(ValueObject[int]):
         @validate(order=1)
@@ -112,7 +112,7 @@ You can still use directly `ValueObjectValidationError` for general validation e
 enhance clarity and maintainability.
 
 ```python
-from value_objects import Float, validate, SindriValidationError
+from value_object import Float, validate, SindriValidationError
 
 
 class NegativePriceError(SindriValidationError):
@@ -127,7 +127,8 @@ class Price(Float):
             raise NegativePriceError(self._value)
 ```
 
-!!! tip "Best Practices"
-    - Use specific exception classes for different validation failures to improve error handling.
-    - Provide clear and informative error messages to aid debugging and user feedback.
-    - Keep validation methods focused on a single responsibility for clarity and maintainability.
+### Best Practices
+
+- Use specific exception classes for different validation failures to improve error handling.
+- Provide clear and informative error messages to aid debugging and user feedback.
+- Keep validation methods focused on a single responsibility for clarity and maintainability.

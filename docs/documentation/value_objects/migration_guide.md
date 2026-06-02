@@ -2,7 +2,8 @@
 
 ## Overview
 
-This guide helps you migrate your custom value object validators to the new signature introduced in sindripy v1.0.0. 
+This guide helps you migrate your custom value object validators to the new signature introduced in the previous
+package `sindripy v1.0.0` 
 The change simplifies validator method signatures and reduces code repetition.
 
 ### What Changed?
@@ -191,5 +192,5 @@ class Age(ValueObject[int]):
 
 ## Backward Compatibility
 
-For a transition period, `sindripy` provides an adapter that automatically detects and supports both old and new validator signatures. 
+For a transition period, `value-object-sindri` provides an adapter that automatically detects and supports both old and new validator signatures. 
 However, we recommend migrating to the new signature as soon as possible for cleaner code and future compatibility.

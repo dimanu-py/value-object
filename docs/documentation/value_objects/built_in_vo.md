@@ -17,7 +17,7 @@ validations:
 The Boolean class wraps Python `bool` values and provides the foundation for creating domain-specific boolean value objects.
 
 ```python
-from value_objects import Boolean
+from value_object import Boolean
 
 is_active = Boolean(True)
 
@@ -29,7 +29,7 @@ print(is_active)  # True
 The Integer class wraps Python `int` values and provides the foundation for creating domain-specific integer value objects.
 
 ```python
-from value_objects import Integer
+from value_object import Integer
 
 quantity = Integer(25)
 
@@ -41,7 +41,7 @@ print(quantity)  # 25
 The Float class wraps Python `float` values and provides the foundation for creating domain-specific float value objects.
 
 ```python
-from value_objects import Float
+from value_object import Float
 
 price = Float(19.99)
 
@@ -53,7 +53,7 @@ print(price)  # 19.99
 The String class wraps Python `str` values and provides the foundation for creating domain-specific string value objects.
 
 ```python
-from value_objects import String
+from value_object import String
 
 username = String("john_doe")
 
@@ -74,7 +74,7 @@ enforces at runtime that all elements in the list match the specified type.
 You can use this value object to wrap lists of primitive types or other value objects.
 
 ```python
-from value_objects import List, String
+from value_object import List, String
 
 
 class Strings(List[str]): ...
@@ -106,7 +106,7 @@ of identifiers (e.g., using a UserId where an OrderId is expected) through the t
 The library currently provides `StringUuid` as the base identifier type, which validates UUID format strings.
 
 ```python
-from value_objects import StringUuid
+from value_object import StringUuid
 
 user_id = StringUuid("550e8400-e29b-41d4-a716-446655440000")
 

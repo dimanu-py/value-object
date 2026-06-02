@@ -1,20 +1,17 @@
 # Value Objects & Object Mother
 
 <div align="center">
-  <strong>Easy use and customizable implementation for Value Object and Object Mother patterns.</strong>
+  <strong>Easy use and customizable implementation for Value Object pattern.</strong>
 </div>
 
 <div align="center"><table><tr><td>
-Sindri replaces ad hoc primitives and fragile validators with a consistent Value Object and Aggregate 
+Sindri Value Object replaces ad hoc primitives and fragile validators with a consistent Value Object and Aggregate 
 toolkit you can adopt quickly. 
-Spin up validated value objects, aggregates, and test data with a simple and a small, focused API.
-
-The project provides two independent packages: **`value-object-sindri`** (zero runtime dependencies) for value
-object patterns and **`object-mother-sindri`** (depends on faker) for test data generation.
+Spin up validated value objects and aggregates with a simple and a small, focused API.
 
 <br><br>
 
-<b>Why use them?</b> Building your domain with Sindri lets you:
+<b>Why use it?</b> Building your domain with Sindri Value Object lets you:
 
 <ul style="list-style-type: none">
   <li>⏱️ Cut domain modeling and validation to seconds</li>
@@ -39,7 +36,6 @@ This section provides a high-level overview of the documentation so you can find
 - [Installation]
 - [First Steps]
 - [Value Object Pattern]
-- [Object Mother Pattern]
 
 ### For Developers
 
@@ -51,11 +47,10 @@ This section provides a high-level overview of the documentation so you can find
 -   Join a discussion 💬 on [GitHub Discussions]
 -   [Raise an issue][GitHub Issues] on GitHub
 
-[GitHub Discussions]: https://github.com/dimanu-py/sindri/discussions
-[GitHub Issues]: https://github.com/dimanu-py/sindri/issues
+[GitHub Discussions]: https://github.com/dimanu-py/value-object/discussions
+[GitHub Issues]: https://github.com/dimanu-py/value-object/issues
 [Installation]: ../getting_started/installation.md
 [First Steps]: ../getting_started/first_steps.md
 [Value Object Pattern]: ../value_objects/index.md
-[Object Mother Pattern]: ../object_mothers/index.md
 [Contributing Guide]: ../contributing/contributing_guide.md
 [Security Policy]: ../contributing/security.md

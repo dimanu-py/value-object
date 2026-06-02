@@ -10,7 +10,7 @@ We take security issues seriously and appreciate responsible disclosures.
 > Use one of the private channels below so we can coordinate a safe disclosure.
 
 | Channel                      | How it works                                                                                                                  |
-| ---------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+|------------------------------|-------------------------------------------------------------------------------------------------------------------------------|
 | **GitHub Security Advisory** | 1. Navigate to the repository's **“Security → Advisories”** tab<br>2. Click **“Report a vulnerability”** and fill in the form |
 
 Include the following, if possible:
