@@ -1,6 +1,6 @@
 [project]
 name = "value-object-sindri"
-version = "0.0.1"
+version = "0.1.0"
 description = "Value Object pattern implementation for Python"
 authors = [{name = "dimanu-py", email = "dimanu.py@gmail.com"}]
 dependencies = ["typing-extensions>=4.0; python_version < \"3.12\""]
@@ -39,6 +39,10 @@ documentation = "https://dimanu-py.github.io/value-object/home/"
 repository = "https://github.com/dimanu-py/value-object/"
 homepage = "https://dimanu-py.github.io/value-object/home/"
 issues = "https://github.com/dimanu-py/value-object/issues/"
+
+[project.optional-dependencies]
+build = ["uv>=0.11.17"]
+
 
 [dependency-groups]
 dev = [
@@ -79,6 +83,7 @@ markers = [
 testpaths = ["test"]
 pythonpath = ["src"]
 
+
 [tool.ruff]
 line-length = 120
 
@@ -94,8 +99,6 @@ quote-style = "double"
 indent-style = "space"
 skip-magic-trailing-comma = false
 
-[project.optional-dependencies]
-build = ["uv>=0.11.17"]
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/value_object"]
@@ -108,6 +111,7 @@ include = [
     "CHANGELOG.md",
     "CITATION.cff",
 ]
+
 
 [tool.semantic_release]
 version_toml = ["pyproject.toml:project.version"]
