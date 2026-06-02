@@ -10,6 +10,7 @@ from value_object.aggregate import Aggregate
 from value_object.decorators.validation import validate
 from value_object.errors.sindri_validation_error import SindriValidationError
 from value_object.identifiers.string_uuid import StringUuid
+from value_object.optional import Optional
 from value_object.primitives.boolean import Boolean
 from value_object.primitives.float import Float
 from value_object.primitives.integer import Integer
@@ -25,6 +26,7 @@ __all__ = [
     "Float",
     "Integer",
     "List",
+    "Optional",
     "String",
     "ValueObject",
     "SindriValidationError",
