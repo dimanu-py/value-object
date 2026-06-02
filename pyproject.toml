@@ -1,0 +1,143 @@
+[project]
+name = "value-object-sindri"
+version = "0.0.1"
+description = "Value Object pattern implementation for Python"
+authors = [{name = "dimanu-py", email = "dimanu.py@gmail.com"}]
+dependencies = ["typing-extensions>=4.0; python_version < \"3.12\""]
+requires-python = ">=3.10"
+readme = "README.md"
+license = { file = "LICENSE" }
+keywords = [
+    "value object",
+    "value-object",
+    "value objects",
+    "value-objects",
+    "Value Object",
+    "domain driven design",
+    "ddd",
+    "clean architecture",
+    "hexagonal architecture",
+    "design patterns",
+]
+classifiers = [
+    "Typing :: Typed",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Software Development :: Libraries",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Topic :: Software Development",
+]
+
+[project.urls]
+documentation = "https://dimanu-py.github.io/value-object/home/"
+repository = "https://github.com/dimanu-py/value-object/"
+homepage = "https://dimanu-py.github.io/value-object/home/"
+issues = "https://github.com/dimanu-py/value-object/issues/"
+
+[dependency-groups]
+dev = [
+    {include-group = "lint"},
+    {include-group = "test"},
+    {include-group = "release"},
+    {include-group = "doc"},
+]
+release = [
+    "python-semantic-release",
+]
+lint = [
+    "mypy",
+    "ruff",
+    "pip-audit",
+    "pre-commit",
+]
+test = [
+    "expects>=0.9.0",
+    "pytest",
+    "pytest-sugar>=1.1.1",
+    "object-mother-sindri==0.1.0"
+]
+doc = [
+    "mkdocs>=1.6.1",
+    "mkdocs-literate-nav>=0.6.2",
+    "mkdocs-macros-plugin>=1.3.7",
+    "mkdocs-material>=9.6.8",
+    "mkdocs-section-index>=0.3.10",
+]
+
+[tool.pytest.ini_options]
+markers = [
+    "unit: mark a test as a unit test",
+    "acceptance: mark a test as an acceptance test",
+    "integration: mark a test as an integration test",
+]
+testpaths = ["test"]
+
+[tool.ruff]
+line-length = 120
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "B", "C4", "UP", "I"]
+ignore = ["B008"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["src", "test"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+
+[project.optional-dependencies]
+build = ["uv>=0.11.17"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/value_object"]
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "src/value_object",
+    "LICENSE",
+    "README.md",
+    "CHANGELOG.md",
+    "CITATION.cff",
+]
+
+[tool.semantic_release]
+version_toml = ["pyproject.toml:project.version"]
+version_variables = ["src/value_object/__init__.py:__version__"]
+commit_message = "bump: new version {version} created"
+commit_parser = "conventional"
+major_on_zero = false
+allow_zero_version = true
+no_git_verify = false
+tag_format = "{version}"
+build_command = """
+    pip install -e '.[build]'
+    uv lock --upgrade-package "$PACKAGE_NAME"
+    git add uv.lock
+    uv build
+"""
+
+[tool.semantic_release.commit_parser_options]
+minor_tags = ["feat"]
+patch_tags = ["fix", "perf", "refactor", "test", "build"]
+allowed_tags = ["feat", "fix", "refactor", "perf", "build"]
+default_bump_level = 0
+parse_squash_commits = false
+ignore_merge_commits = true
+
+[tool.semantic_release.changelog]
+exclude_commit_patterns = ['''^Merge pull request #''', '''^Merge branch ''']
+mode = "update"
+#template_dir = "docs/changelog"
+
+[tool.semantic_release.changelog.default_templates]
+changelog_file = "CHANGELOG.md"
+output_format = "md"
+mask_initial_release = false

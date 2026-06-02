@@ -1,0 +1,55 @@
+dependencies:
+- group: test
+  is_dev: true
+  name: pytest
+  version: latest
+- group: test
+  is_dev: true
+  name: pytest-sugar
+  version: latest
+- group: test
+  is_dev: true
+  name: expects
+  version: latest
+- group: release
+  is_dev: true
+  name: python-semantic-release
+  version: latest
+- group: lint
+  is_dev: true
+  name: pip-audit
+  version: latest
+- group: lint
+  is_dev: true
+  name: pre-commit
+  version: latest
+- group: lint
+  is_dev: true
+  name: ruff
+  version: latest
+general:
+  author: dimanu-py
+  dependency_manager: uv
+  description: Implementation of  object mother pattern to be reused among projects
+  license: MIT
+  python_version: '3.13'
+  slug: value-object-sindri
+  source_name: src
+  version: 0.0.1
+  year: 2026
+git:
+  email: dimanu.py@gmail.com
+  initialize: true
+  username: dimanu-py
+template:
+  aggregate_name: null
+  bounded_context: null
+  built_in_features:
+  - github_actions
+  - github_issues_template
+  - makefile
+  - precommit_hook
+  - citation_file
+  - security_file
+  name: standard_project
+  specify_bounded_context: false
