@@ -1,9 +1,9 @@
-site_name: Sindri
+site_name: Sindri Value Object
 site_url: https://dimanu-py.github.io/value-object-sindri
 site_description: >
   A tool to help you create value objects, validate domain logic, ensure data integrity 
   and generate test data in your Python applications.
-repo_name: sindripy
+repo_name: value-object
 repo_url: https://github.com/dimanu-py/value-object
 docs_dir: docs/documentation
 extra:

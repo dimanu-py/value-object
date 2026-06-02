@@ -1,4 +1,4 @@
-# Value Objects & Object Mother
+# Value Objects
 
 <div align="center">
   <strong>Easy use and customizable implementation for Value Object pattern.</strong>
