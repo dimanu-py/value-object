@@ -1,6 +1,6 @@
 [project]
 name = "value-object-sindri"
-version = "0.1.0"
+version = "0.2.0"
 description = "Value Object pattern implementation for Python"
 authors = [{name = "dimanu-py", email = "dimanu.py@gmail.com"}]
 dependencies = ["typing-extensions>=4.0; python_version < \"3.12\""]
@@ -42,6 +42,7 @@ issues = "https://github.com/dimanu-py/value-object/issues/"
 
 [project.optional-dependencies]
 build = ["uv>=0.11.17"]
+
 
 
 [dependency-groups]
