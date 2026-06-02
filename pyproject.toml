@@ -77,6 +77,7 @@ markers = [
     "integration: mark a test as an integration test",
 ]
 testpaths = ["test"]
+pythonpath = ["src"]
 
 [tool.ruff]
 line-length = 120
