@@ -52,7 +52,7 @@ jobs:
           REDIRECT_EOF
 
       - name: 📤 Upload documentation artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v5
         with:
           path: site
 
