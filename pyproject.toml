@@ -43,8 +43,6 @@ issues = "https://github.com/dimanu-py/value-object/issues/"
 [project.optional-dependencies]
 build = ["uv>=0.11.17"]
 
-
-
 [dependency-groups]
 dev = [
     {include-group = "lint"},
@@ -74,6 +72,9 @@ doc = [
     "mkdocs-material>=9.6.8",
     "mkdocs-section-index>=0.3.10",
 ]
+
+[tool.uv]
+exclude-newer = "3 days"
 
 [tool.pytest.ini_options]
 markers = [
