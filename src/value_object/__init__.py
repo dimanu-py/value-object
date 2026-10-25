@@ -6,7 +6,7 @@ imported directly from :mod:`value_objects`.
 
 __version__ = "0.2.0"
 
-from value_object.aggregate import Aggregate
+from value_object.aggregate_root import AggregateRoot
 from value_object.decorators.validation import validate
 from value_object.errors.sindri_validation_error import SindriValidationError
 from value_object.identifiers.string_uuid import StringUuid
@@ -19,7 +19,7 @@ from value_object.primitives.string import String
 from value_object.value_object import ValueObject
 
 __all__ = [
-    "Aggregate",
+    "AggregateRoot",
     "validate",
     "StringUuid",
     "Boolean",

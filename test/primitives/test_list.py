@@ -4,7 +4,7 @@ import pytest
 from expects import be_false, be_none, be_true, equal, expect, raise_error
 from object_mother.primitives.list_primitives_mother import ListPrimitivesMother
 
-from value_object.aggregate import Aggregate
+from value_object.aggregate_root import AggregateRoot
 from value_object.errors.incorrect_value_type_error import IncorrectValueTypeError
 from value_object.errors.required_value_error import RequiredValueError
 from value_object.primitives.list import List
@@ -58,7 +58,7 @@ def test_should_create_from_primitives_with_value_objects() -> None:
 
 
 def test_should_create_from_primitives_with_aggregates() -> None:
-    class Person(Aggregate):
+    class Person(AggregateRoot):
         def __init__(self, name: str, age: int, email: str):
             self.name = name
             self.age = age

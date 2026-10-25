@@ -7,11 +7,11 @@ from value_object._compat import Self, override
 from value_object.value_object import ValueObject
 
 
-class Aggregate(ABC):
+class AggregateRoot(ABC):
     """
     Abstract base class for implementing aggregates in domain-driven design.
 
-    Aggregates are clusters of domain objects that can be treated as a single unit.
+    Aggregate roots are clusters of domain objects that can be treated as a single unit.
     They ensure consistency boundaries and encapsulate business rules across
     related entities and value objects.
 
@@ -22,7 +22,7 @@ class Aggregate(ABC):
         - Handling nested value objects and other aggregates
 
     Example:
-        >>> class User(Aggregate):
+        >>> class User(AggregateRoot):
         ...     def __init__(self, user_id: int, name: str, email: str):
         ...         self.user_id = user_id
         ...         self.name = name
@@ -45,7 +45,7 @@ class Aggregate(ABC):
             NotImplementedError: Always raised as this is an abstract method.
 
         Example:
-            >>> class Product(Aggregate):
+            >>> class Product(AggregateRoot):
             ...     def __init__(self, product_id: str, name: str, price: float):
             ...         self.product_id = product_id
             ...         self.name = name
@@ -67,7 +67,7 @@ class Aggregate(ABC):
             A string in the format "ClassName(attr1=value1, attr2=value2, ...)"
 
         Example:
-            >>> class Order(Aggregate):
+            >>> class Order(AggregateRoot):
             ...     def __init__(self, order_id: str, customer_id: int, total: float):
             ...         self.order_id = order_id
             ...         self.customer_id = customer_id
@@ -99,7 +99,7 @@ class Aggregate(ABC):
             NotImplemented if comparing with a different type.
 
         Example:
-            >>> class Category(Aggregate):
+            >>> class Category(AggregateRoot):
             ...     def __init__(self, cat_id: int, name: str):
             ...         self.cat_id = cat_id
             ...         self.name = name
@@ -133,7 +133,7 @@ class Aggregate(ABC):
             A dictionary mapping attribute names to their values.
 
         Example:
-            >>> class Invoice(Aggregate):
+            >>> class Invoice(AggregateRoot):
             ...     def __init__(self, invoice_id: str, amount: float):
             ...         self.invoice_id = invoice_id
             ...         self.amount = amount
@@ -181,7 +181,7 @@ class Aggregate(ABC):
             ValueError: If required parameters are missing or extra parameters are provided.
 
         Example:
-            >>> class Customer(Aggregate):
+            >>> class Customer(AggregateRoot):
             ...     def __init__(self, customer_id: int, name: str, email: str = None):
             ...         self.customer_id = customer_id
             ...         self.name = name
@@ -235,7 +235,7 @@ class Aggregate(ABC):
             ValueError: Always raised with detailed information about the mismatch.
 
         Example:
-            >>> class Item(Aggregate):
+            >>> class Item(AggregateRoot):
             ...     def __init__(self, item_id: str, name: str, price: float):
             ...         pass
             ...
@@ -287,7 +287,7 @@ class Aggregate(ABC):
             {'user_id': 123, 'status': 'active', 'balance': 1500.5}
             >>>
             >>> # With nested aggregates
-            >>> class Order(Aggregate):
+            >>> class Order(AggregateRoot):
             ...     def __init__(self, account: Account, item_count: int):
             ...         self.account = account
             ...         self.item_count = item_count
@@ -298,7 +298,7 @@ class Aggregate(ABC):
         """
         primitives = self._to_dict()
         for key, value in primitives.items():
-            if isinstance(value, Aggregate) or hasattr(value, "to_primitives"):
+            if isinstance(value, AggregateRoot) or hasattr(value, "to_primitives"):
                 value = value.to_primitives()
 
             elif isinstance(value, Enum):
