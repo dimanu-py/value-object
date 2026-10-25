@@ -38,6 +38,10 @@ updates:
       day: "monday"
       time: "06:00"
       timezone: "Europe/Madrid"
+    groups:
+      github-actions:
+        patterns:
+          - "*"
 
   - package-ecosystem: "docker"
     directory: "/"

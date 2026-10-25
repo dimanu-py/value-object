@@ -20,39 +20,20 @@ jobs:
           egress-policy: audit
 
       - name: 📥 Checkout the repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         with:
           ref: ${{ github.head_ref }}
           fetch-depth: 0
           persist-credentials: false
 
       - name: 🛠️ Setup environment
-        uses: ./.github/actions/python_setup
+        uses: ./.github/actions/setup_environment
 
       - name: 🧐 Check linting
-        run: make check-lint
-
-  format:
-    name: format
-    runs-on: ubuntu-latest
-    steps:
-      - name: 🛡️ Harden runner
-        uses: step-security/harden-runner@9af89fc71515a100421586dfdb3dc9c984fbf411 # v2.19.4
-        with:
-          egress-policy: audit
-
-      - name: 📥 Checkout the repository
-        uses: actions/checkout@v6
-        with:
-          ref: ${{ github.head_ref }}
-          fetch-depth: 0
-          persist-credentials: false
-
-      - name: 🛠️ Setup environment
-        uses: ./.github/actions/python_setup
+        run: task lint
 
       - name: 🧐 Check code format
-        run: make check-format
+        run: task format
 
   typing:
     runs-on: ubuntu-latest
@@ -63,17 +44,17 @@ jobs:
           egress-policy: audit
 
       - name: 📥 Checkout the repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         with:
           ref: ${{ github.head_ref }}
           fetch-depth: 0
           persist-credentials: false
 
       - name: 🛠️ Setup environment
-        uses: ./.github/actions/python_setup
+        uses: ./.github/actions/setup_environment
 
       - name: 🧐 Check static types
-        run: make check-typing
+        run: task type-check
 
   analyze-code-quality:
     name: analyze-code-quality
@@ -89,7 +70,7 @@ jobs:
           egress-policy: audit
 
       - name: 📥 Checkout the repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         with:
           ref: ${{ github.head_ref }}
           fetch-depth: 0
@@ -122,16 +103,16 @@ jobs:
           egress-policy: audit
 
       - name: 📥 Checkout the repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         with:
           fetch-depth: 0
           persist-credentials: false
 
       - name: 🛠️ Setup environment
-        uses: ./.github/actions/python_setup
+        uses: ./.github/actions/setup_environment
 
       - name: 🏃 Run audit
-        run: make audit
+        run: task audit
 
   test:
     name: test
@@ -143,25 +124,13 @@ jobs:
           egress-policy: audit
 
       - name: 📥 Checkout the repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         with:
           fetch-depth: 0
           persist-credentials: false
 
       - name: 🛠️ Setup environment
-        uses: ./.github/actions/python_setup
-
-      - name: 📦 Install test dependencies
-        run: uv add pytest pytest-cov
+        uses: ./.github/actions/setup_environment
 
       - name: 🏃 Run tests
-        run: uv run pytest --cov --cov-report=xml --cov-branch test -ra -s
-
-      - name: 📥 Upload coverage report to Codecov
-        uses: codecov/codecov-action@v6
-        with:
-          files: coverage.xml
-          flags: unittests
-          name: codecov-coverage
-          token: ${{ secrets.CODECOV_TOKEN }}
-          slug: dimanu-py/value-object-sindri
+        run: task test:all
