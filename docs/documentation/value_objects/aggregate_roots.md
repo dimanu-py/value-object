@@ -12,8 +12,8 @@ Domain-Driven Design (DDD) to model complex business domains.
 - **String Representation**: Aggregate roots provide a clear string representation that includes all their non-private attributes.
 - **Equality**: Aggregate roots implement equality based on the values of their attributes, ensuring that two instances
   with the same attribute values are considered equal.
-- **Creation from Dictionary**: Aggregate roots can be instantiated from dictionaries through the `from_primitives` method, 
-allowing easy deserialization from JSON or other data formats.
+- **Creation from Primitives**: Aggregate roots can be instantiated from a dictionary, or from keyword arguments,
+  through the `from_primitives` method, allowing easy deserialization from JSON or other data formats.
 - **Primitive Extraction**: Aggregate roots can convert themselves back to dictionaries of primitive values using the
   `to_primitives` method, facilitating serialization and avoiding exposing internal structures.
 
@@ -75,6 +75,48 @@ address_from_primitives = Address.from_primitives({
         "zip_code": "12345"
     })
     ```
+
+### Creating an Aggregate Root from Primitives
+
+`from_primitives` can be called in two equivalent ways: passing a single dictionary, or passing
+the fields directly as keyword arguments. Both produce the same result, so pick whichever reads
+better at the call site.
+
+```python
+from value_object import AggregateRoot
+
+
+class Customer(AggregateRoot):
+    def __init__(self, customer_id: int, name: str, email: str | None = None):
+        self.customer_id = customer_id
+        self.name = name
+        self.email = email
+
+
+customer_from_dict = Customer.from_primitives({"customer_id": 42, "name": "Alice Smith"})
+customer_from_kwargs = Customer.from_primitives(customer_id=42, name="Alice Smith")
+```
+
+!!! danger "The two calling styles cannot be mixed"
+    Passing a dictionary and keyword arguments in the same call raises a `TypeError`:
+
+    ```python
+    Customer.from_primitives({"customer_id": 42}, name="Alice Smith")
+    # TypeError: Customer.from_primitives() does not accept both a primitives dictionary and keyword arguments.
+    ```
+
+Regardless of which style you use, `from_primitives` always validates that every required constructor
+parameter is present and that no unexpected field is given:
+
+```python
+Customer.from_primitives({"name": "Bob"})
+# ValueError: Customer primitives <<<name>>> must contain all constructor parameters.
+# Missing parameters: <<<customer_id>>> and extra parameters: <<<>>>.
+
+Customer.from_primitives(customer_id=1, name="Charlie", age=30)
+# ValueError: Customer primitives <<<age, customer_id, name>>> must contain all constructor parameters.
+# Missing parameters: <<<>>> and extra parameters: <<<age>>>.
+```
 
 ### Exposing Attributes
 
