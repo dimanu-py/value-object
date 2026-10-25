@@ -233,3 +233,17 @@ def test_should_exclude_single_field() -> None:
     order = Order(order_id="ORD-001", customer_id=123, total=99.99)
 
     expect(order.to_primitives(exclude="total")).to(equal({"order_id": "ORD-001", "customer_id": 123}))
+
+
+def test_should_exclude_multiple_fields() -> None:
+    order = Order(order_id="ORD-001", customer_id=123, total=99.99)
+
+    expect(order.to_primitives(exclude={"customer_id", "total"})).to(equal({"order_id": "ORD-001"}))
+
+
+def test_should_ignore_exclude_value_that_is_not_a_field_name() -> None:
+    order = Order(order_id="ORD-001", customer_id=123, total=99.99)
+
+    expect(order.to_primitives(exclude="not_a_field")).to(
+        equal({"order_id": "ORD-001", "customer_id": 123, "total": 99.99})
+    )
