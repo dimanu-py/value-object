@@ -1,0 +1,44 @@
+version: '3'
+
+tasks:
+  sync-all:
+    desc: Install dependencies
+    cmds:
+      - printf "\n⌛ Installing dependencies...\n"
+      - uv sync --all-groups
+
+  update:
+    desc: Update dependencies
+    cmds:
+      - printf "\n⌛ Updating dependencies...\n"
+      - uv sync --upgrade
+
+  add:
+    desc: Add a new dependency
+    cmds:
+      - uv add {{.package}}
+    preconditions:
+      - sh: '[ -n "{{.package}}" ]'
+        msg: 'Please provide a package: task deps:add package="package_name"'
+
+  remove:
+    desc: Remove a dependency
+    cmds:
+      - uv remove {{.package}}
+    preconditions:
+      - sh: '[ -n "{{.package}}" ]'
+        msg: 'Please provide a package: task deps:remove package="package_name"'
+
+  show:
+    desc: Show installed dependencies
+    cmds:
+      - uv tree
+
+  search:
+    desc: Show package details
+    interactive: true
+    cmds:
+      - uv pip show {{.package}}
+    preconditions:
+      - sh: '[ -n "{{.package}}" ]'
+        msg: 'Please provide a package: task deps:search package="package_name"'

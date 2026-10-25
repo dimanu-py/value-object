@@ -58,14 +58,16 @@ repos:
     hooks:
       - id: lint
         name: 🧹 Code Linter
-        entry: make check-lint
+        entry: task lint
         language: system
+        pass_filenames: false
         stages:
           - pre-push
 
       - id: format
         name: 🎨 Code Formatter
-        entry: make check-format
+        entry: task format
         language: system
+        pass_filenames: false
         stages:
           - pre-push
