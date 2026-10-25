@@ -252,7 +252,7 @@ class AggregateRoot(ABC):
 
         raise ValueError(f'{cls.__name__} primitives <<<{primitives_names}>>> must contain all constructor parameters. Missing parameters: <<<{missing_names}>>> and extra parameters: <<<{extra_names}>>>.')  # noqa: E501  # fmt: skip
 
-    def to_primitives(self, *, exclude: str | set[str] | None = None) -> dict[str, Any]:
+    def to_primitives(self, *, exclude: str | set[str] | None = None, exclude_none: bool = False) -> dict[str, Any]:
         """
         Convert the aggregate to a dictionary of primitive values.
 
@@ -262,6 +262,7 @@ class AggregateRoot(ABC):
 
         Args:
             exclude: The name of a field, or a set of field names, to exclude from the resulting dictionary.
+            exclude_none: Whether to exclude fields whose value is None from the resulting dictionary.
 
         Returns:
             A dictionary with primitive values (strings, numbers, booleans, etc.)
@@ -318,5 +319,8 @@ class AggregateRoot(ABC):
         excluded_fields = {exclude} if isinstance(exclude, str) else exclude or set()
         for field in excluded_fields:
             primitives.pop(field, None)
+
+        if exclude_none:
+            primitives = {key: value for key, value in primitives.items() if value is not None}
 
         return primitives

@@ -247,3 +247,15 @@ def test_should_ignore_exclude_value_that_is_not_a_field_name() -> None:
     expect(order.to_primitives(exclude="not_a_field")).to(
         equal({"order_id": "ORD-001", "customer_id": 123, "total": 99.99})
     )
+
+
+def test_should_exclude_fields_with_none_value_when_exclude_none_is_true() -> None:
+    customer = Customer(customer_id=42, name="Alice Smith", email=None)
+
+    expect(customer.to_primitives(exclude_none=True)).to(equal({"customer_id": 42, "name": "Alice Smith"}))
+
+
+def test_should_combine_exclude_and_exclude_none() -> None:
+    customer = Customer(customer_id=42, name="Alice Smith", email=None)
+
+    expect(customer.to_primitives(exclude="name", exclude_none=True)).to(equal({"customer_id": 42}))
