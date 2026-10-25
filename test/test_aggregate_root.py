@@ -181,6 +181,16 @@ def test_should_raise_error_when_extra_parameter_is_provided() -> None:
     expect(lambda: Customer.from_primitives(primitives)).to(raise_error(ValueError))
 
 
+def test_should_create_aggregate_from_primitives_using_keyword_arguments() -> None:
+    customer = Customer.from_primitives(customer_id=42, name="Alice Smith")
+
+    expect(customer).to(equal(Customer(customer_id=42, name="Alice Smith")))
+
+
+def test_should_raise_error_when_both_primitives_dictionary_and_keyword_arguments_are_provided() -> None:
+    expect(lambda: Customer.from_primitives({"customer_id": 42}, name="Alice Smith")).to(raise_error(TypeError))  # type: ignore[call-overload]  # noqa: E501
+
+
 def test_should_convert_plain_attributes_to_primitives() -> None:
     order = Order(order_id="ORD-001", customer_id=123, total=99.99)
 

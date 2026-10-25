@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from enum import Enum
 from inspect import Parameter, _empty, signature
-from typing import Any
+from typing import Any, overload
 
 from value_object._compat import Self, override
 from value_object.value_object import ValueObject
@@ -160,24 +160,33 @@ class AggregateRoot(ABC):
 
         return dictionary
 
+    @overload
     @classmethod
-    def from_primitives(cls, primitives: dict[str, Any]) -> Self:
+    def from_primitives(cls, primitives: dict[str, Any], /) -> Self: ...
+    @overload
+    @classmethod
+    def from_primitives(cls, **fields: Any) -> Self: ...
+    @classmethod
+    def from_primitives(cls, *args: dict[str, Any], **kwargs: Any) -> Self:
         """
-        Create an aggregate instance from a dictionary of primitive values.
+        Create an aggregate instance from a dictionary of primitive values, or from keyword arguments.
 
-        This factory method constructs an aggregate by mapping dictionary keys
-        to constructor parameters. All required constructor parameters must be
-        present in the primitives dictionary.
+        This factory method constructs an aggregate by mapping field names to constructor
+        parameters. All required constructor parameters must be provided, either as a single
+        dictionary or as keyword arguments, but not both at once.
 
         Args:
             primitives: A dictionary mapping parameter names to their values.
                        Must contain all required constructor parameters.
+            **kwargs: The aggregate's fields passed directly as keyword arguments,
+                       as an alternative to passing a dictionary.
 
         Returns:
             A new instance of the aggregate class.
 
         Raises:
-            TypeError: If primitives is not a dictionary with string keys.
+            TypeError: If primitives is not a dictionary with string keys, or if both
+                       a dictionary and keyword arguments are provided.
             ValueError: If required parameters are missing or extra parameters are provided.
 
         Example:
@@ -194,24 +203,36 @@ class AggregateRoot(ABC):
             >>> customer.customer_id
             42
             >>>
+            >>> customer = Customer.from_primitives(customer_id=42, name="Alice Smith")
+            >>> customer.name
+            'Alice Smith'
+            >>>
             >>> # Missing required parameter
             >>> Customer.from_primitives({"name": "Bob"})  # Raises ValueError
             >>>
             >>> # Extra parameter
             >>> Customer.from_primitives({"customer_id": 1, "name": "Charlie", "age": 30})  # Raises ValueError
         """
-        if not isinstance(primitives, dict) or not all(isinstance(key, str) for key in primitives):
-            raise TypeError(f'{cls.__name__} primitives <<<{primitives}>>> must be a dictionary of strings. Got <<<{type(primitives).__name__}>>> type.')  # noqa: E501  # fmt: skip
+        if len(args) > 1:
+            raise TypeError(f"{cls.__name__}.from_primitives() accepts at most one positional dictionary argument.")  # noqa: E501  # fmt: skip
+
+        if args and kwargs:
+            raise TypeError(f"{cls.__name__}.from_primitives() does not accept both a primitives dictionary and keyword arguments.")  # noqa: E501  # fmt: skip
+
+        data = args[0] if args else kwargs
+
+        if not isinstance(data, dict) or not all(isinstance(key, str) for key in data):
+            raise TypeError(f'{cls.__name__} primitives <<<{data}>>> must be a dictionary of strings. Got <<<{type(data).__name__}>>> type.')  # noqa: E501  # fmt: skip
 
         constructor_signature = signature(obj=cls.__init__)
         parameters: dict[str, Parameter] = {parameter.name: parameter for parameter in constructor_signature.parameters.values() if parameter.name != 'self'}  # noqa: E501  # fmt: skip
-        missing = {name for name, parameter in parameters.items() if parameter.default is _empty and name not in primitives}  # noqa: E501  # fmt: skip
-        extra = set(primitives) - parameters.keys()
+        missing = {name for name, parameter in parameters.items() if parameter.default is _empty and name not in data}  # noqa: E501  # fmt: skip
+        extra = set(data) - parameters.keys()
 
         if missing or extra:
-            cls._raise_value_constructor_parameters_mismatch(primitives=set(primitives), missing=missing, extra=extra)
+            cls._raise_value_constructor_parameters_mismatch(primitives=set(data), missing=missing, extra=extra)
 
-        return cls(**primitives)
+        return cls(**data)
 
     @classmethod
     def _raise_value_constructor_parameters_mismatch(
