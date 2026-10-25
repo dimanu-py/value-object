@@ -227,3 +227,9 @@ def test_should_double_unwrap_value_object_wrapping_an_enum() -> None:
     aggregate = AggregateWithValueObjectWrappingEnum(status=StatusValueObject(Status.ACTIVE))
 
     expect(aggregate.to_primitives()).to(equal({"status": "active"}))
+
+
+def test_should_exclude_single_field() -> None:
+    order = Order(order_id="ORD-001", customer_id=123, total=99.99)
+
+    expect(order.to_primitives(exclude="total")).to(equal({"order_id": "ORD-001", "customer_id": 123}))

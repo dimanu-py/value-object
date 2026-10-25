@@ -252,13 +252,16 @@ class AggregateRoot(ABC):
 
         raise ValueError(f'{cls.__name__} primitives <<<{primitives_names}>>> must contain all constructor parameters. Missing parameters: <<<{missing_names}>>> and extra parameters: <<<{extra_names}>>>.')  # noqa: E501  # fmt: skip
 
-    def to_primitives(self) -> dict[str, Any]:
+    def to_primitives(self, *, exclude: str | None = None) -> dict[str, Any]:
         """
         Convert the aggregate to a dictionary of primitive values.
 
         Recursively converts the aggregate and all nested objects (other aggregates,
         value objects, enums) to their primitive representations. This is useful
         for serialization to JSON, database storage, or API responses.
+
+        Args:
+            exclude: The name of a field to exclude from the resulting dictionary.
 
         Returns:
             A dictionary with primitive values (strings, numbers, booleans, etc.)
@@ -311,5 +314,8 @@ class AggregateRoot(ABC):
                     value = value.value
 
             primitives[key] = value
+
+        if exclude is not None:
+            primitives.pop(exclude, None)
 
         return primitives
