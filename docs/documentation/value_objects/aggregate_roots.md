@@ -113,6 +113,46 @@ class Address(AggregateRoot):
         return self._city == other._city
 ```
 
+### Excluding Fields from Primitives
+
+By default, `to_primitives` includes every non-private attribute of the aggregate. You can narrow down the
+result with two optional, combinable parameters:
+
+- `exclude`: the name of a single field, or a set of field names, to leave out of the resulting dictionary.
+- `exclude_none`: when set to `True`, removes every field whose value is `None`, regardless of `exclude`.
+
+```python
+from value_object import AggregateRoot
+
+
+class Customer(AggregateRoot):
+    def __init__(self, customer_id: int, name: str, email: str | None = None):
+        self.customer_id = customer_id
+        self.name = name
+        self.email = email
+
+
+customer = Customer(customer_id=42, name="Alice Smith", email=None)
+
+customer.to_primitives()
+# {"customer_id": 42, "name": "Alice Smith", "email": None}
+
+customer.to_primitives(exclude="email")
+# {"customer_id": 42, "name": "Alice Smith"}
+
+customer.to_primitives(exclude={"customer_id", "name"})
+# {"email": None}
+
+customer.to_primitives(exclude_none=True)
+# {"customer_id": 42, "name": "Alice Smith"}
+
+customer.to_primitives(exclude="name", exclude_none=True)
+# {"customer_id": 42}
+```
+
+!!! note "Unknown field names"
+    Passing a field name to `exclude` that does not exist on the aggregate has no effect; it is silently ignored.
+
 !!! danger "Avoid using `to_primitives` to expose internal state"
     You can expose all the attributes too through the `to_primitives` method, however, the main 
     purpose of this method is to facilitate serialization and data transfer, not to expose internal state.
