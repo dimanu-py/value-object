@@ -1,6 +1,6 @@
 [project]
 name = "value-object-sindri"
-version = "0.2.0"
+version = "0.3.0"
 description = "Value Object pattern implementation for Python"
 authors = [{name = "dimanu-py", email = "dimanu.py@gmail.com"}]
 dependencies = ["typing-extensions>=4.0; python_version < \"3.12\""]
