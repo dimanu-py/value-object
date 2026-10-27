@@ -239,16 +239,17 @@ def test_should_double_unwrap_value_object_wrapping_an_enum() -> None:
     expect(aggregate.to_primitives()).to(equal({"status": "active"}))
 
 
-def test_should_exclude_single_field() -> None:
+@pytest.mark.parametrize(
+    "fields, expected_primitives",
+    [
+        pytest.param({"total"}, {"order_id": "ORD-001", "customer_id": 123}, id="one_field"),
+        pytest.param({"customer_id", "total"}, {"order_id": "ORD-001"}, id="multiple_fields"),
+    ],
+)
+def test_should_exclude_fields(fields: set[str], expected_primitives: dict[str, str]) -> None:
     order = Order(order_id="ORD-001", customer_id=123, total=99.99)
 
-    expect(order.to_primitives(exclude="total")).to(equal({"order_id": "ORD-001", "customer_id": 123}))
-
-
-def test_should_exclude_multiple_fields() -> None:
-    order = Order(order_id="ORD-001", customer_id=123, total=99.99)
-
-    expect(order.to_primitives(exclude={"customer_id", "total"})).to(equal({"order_id": "ORD-001"}))
+    expect(order.to_primitives(exclude=fields)).to(equal(expected_primitives))
 
 
 def test_should_ignore_exclude_value_that_is_not_a_field_name() -> None:
@@ -268,4 +269,4 @@ def test_should_exclude_fields_with_none_value_when_exclude_none_is_true() -> No
 def test_should_combine_exclude_and_exclude_none() -> None:
     customer = Customer(customer_id=42, name="Alice Smith", email=None)
 
-    expect(customer.to_primitives(exclude="name", exclude_none=True)).to(equal({"customer_id": 42}))
+    expect(customer.to_primitives(exclude={"name"}, exclude_none=True)).to(equal({"customer_id": 42}))
