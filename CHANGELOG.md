@@ -2,6 +2,14 @@
 
 <!-- version list -->
 
+## v0.3.1 (2026-10-27)
+
+### Refactoring
+
+- Modify 'exclude' argument in 'to_primitives' to always work with a set of strings
+  ([`9b5c06d`](https://github.com/dimanu-py/value-object/commit/9b5c06d1eec9fc3dc33ab0bb9eded1998cd49bb8))
+
+
 ## v0.3.0 (2026-10-25)
 
 ### Build System

@@ -4,7 +4,7 @@ This module re-exports the most common value objects so they can be
 imported directly from :mod:`value_objects`.
 """
 
-__version__ = "0.3.0"
+__version__ = "0.3.1"
 
 from value_object.aggregate_root import AggregateRoot
 from value_object.decorators.validation import validate
